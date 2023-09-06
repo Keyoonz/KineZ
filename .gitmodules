@@ -1,0 +1,3 @@
+[submodule "KineZ/vendor/spdlog"]
+	path = KineZ/vendor/spdlog
+	url = https://github.com/gabime/spdlog
