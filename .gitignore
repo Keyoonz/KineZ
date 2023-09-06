@@ -1,0 +1,10 @@
+# directories
+.vs/
+bin/
+bin-int/
+KineZ.sln
+
+#vs files
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
