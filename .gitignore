@@ -8,3 +8,6 @@ KineZ.sln
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+
+#premake
+premake5.exe
