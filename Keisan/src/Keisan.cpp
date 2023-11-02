@@ -5,8 +5,10 @@ class Keisan : public KineZ::Application
 private:
 	
 public:
-	Keisan() {
-	
+	Keisan(int width, int height, const char* title)
+		:Application(width, height, title)
+	{
+
 	}
 	~Keisan() {
 
@@ -14,5 +16,5 @@ public:
 };
 
 KineZ::Application* KineZ::CreateApplication() {
-	return new Keisan();
+	return new Keisan(1080, 720, "Keisan");
 }

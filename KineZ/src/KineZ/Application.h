@@ -3,14 +3,19 @@
 #include "Core.h"
 #include "Logger.h"
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 namespace KineZ {
 	class KINEZ_API Application {
 	private:
+		int m_width, m_height;
+		const char* m_title;
 		KineZ::Logger m_logger;
+		GLFWwindow* m_window;
 	public:
-		Application();
+		Application(int width, int height, const char* title);
 		virtual ~Application();
-
 
 		void Run();
 

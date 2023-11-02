@@ -85,6 +85,53 @@ project "GLFW"
         optimize "On"
 
 
+-- project "GLAD"
+--     kind "SharedLib"
+--     language "C"
+
+--     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+--     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+--     files
+--     {
+--         "KineZ/vendor/GLAD/include/glad/glad.h",
+--         "KineZ/vendor/GLAD/include/KHR/khrplatform.h",
+    
+--         "KineZ/vendor/GLAD/src/glad.c",
+--     }
+
+--     includedirs
+--     {
+--         "KineZ/vendor/GLAD/include",
+        
+--     }
+
+--     filter "system:windows"
+--         systemversion "latest"
+--         staticruntime "On"
+
+
+--         defines 
+--         { 
+--             "GLAD_GLAPI_EXPORT",
+--             "GLAD_GLAPI_EXPORT_BUILD"
+
+--         }
+
+--         postbuildcommands 
+--         {
+--             ("{COPY} bin/Debug-windows-x86_64/GLAD/GLAD.dll bin/Debug-windows-x86_64/Keisan/")
+--         }
+
+--     filter "configurations:Debug"
+--         runtime "Debug"
+--         symbols "On"
+
+--     filter "configurations:Release"
+--         runtime "Release"
+--         optimize "On"
+
+
 project "KineZ"
     location "KineZ"
     kind "SharedLib"
@@ -97,12 +144,16 @@ project "KineZ"
     files 
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/src/**.c"
+        
+
     }
 
     includedirs
     {
-        "%{prj.name}/vendor/GLFW/include"
+        "%{prj.name}/vendor/GLFW/include",
+        "%{prj.name}/vendor/GLAD/include"
     }
 
     libdirs 
@@ -113,6 +164,7 @@ project "KineZ"
     links
     {
         "GLFW",
+        -- "GLAD"
     }
 
     filter "system:windows"
@@ -159,6 +211,7 @@ project "Keisan"
     includedirs
     {
         "KineZ/vendor/GLFW/include",
+        "KineZ/vendor/GLAD/include",
         "KineZ/src"
     }
 
