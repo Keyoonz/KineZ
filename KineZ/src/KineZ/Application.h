@@ -2,6 +2,8 @@
 
 #include "Core.h"
 #include "Logger.h"
+#include "UpdateItem.h"
+#include "RenderItem.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

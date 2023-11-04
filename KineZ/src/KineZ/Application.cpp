@@ -18,6 +18,8 @@ namespace KineZ {
 
 	void Application::Run()
 	{	
+		extern std::vector<UpdateItem*> k_updateItems;
+		extern std::vector<RenderItem*> k_renderItems;
 
 		if (!glfwInit()) {
 			m_logger.Error("Initializing GLFW failed.");
@@ -48,7 +50,16 @@ namespace KineZ {
 
 		while(!glfwWindowShouldClose(m_window))
 		{
+			for (int i = 0; i < k_updateItems.size(); i++) {
+				k_updateItems[i]->update();
+			}
+			
+			
 			glClear(GL_COLOR_BUFFER_BIT);
+			for (int i = 0; i < k_renderItems.size(); i++) {
+				k_renderItems[i]->render();
+			}
+
 
 			glfwSwapBuffers(m_window);
 
