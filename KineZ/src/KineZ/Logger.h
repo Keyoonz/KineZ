@@ -33,6 +33,11 @@ namespace KineZ {
 		void Warn(    bool value);
 		void Error(   bool value);
 		void Critical(bool value);
+		void Info(    const std::string& string);
+		void Warn(    const std::string& string);
+		void Error(   const std::string& string);
+		void Critical(const std::string& string);
+		
 		void SetLogLevel(LogLevel level);
 
 	};

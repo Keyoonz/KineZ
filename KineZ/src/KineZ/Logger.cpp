@@ -112,6 +112,40 @@ void KineZ::Logger::Critical(bool value)
 	SetConsoleTextAttribute(m_handle, 0x0f);
 }
 
+void KineZ::Logger::Info(const std::string& string)
+{
+	if (m_level <= LogLevel::Info) {
+		SetConsoleTextAttribute(m_handle, 0x0a);
+		std::cout << "[" << m_name << "][INFO] " << string << std::endl;
+		SetConsoleTextAttribute(m_handle, 0x0f);
+	}
+}
+
+void KineZ::Logger::Warn(const std::string& string)
+{
+	if (m_level <= LogLevel::Warning) {
+		SetConsoleTextAttribute(m_handle, 0x0e);
+		std::cout << "[" << m_name << "][WARNING] " << string << std::endl;
+		SetConsoleTextAttribute(m_handle, 0x0f);
+	}
+}
+
+void KineZ::Logger::Error(const std::string& string)
+{
+	if (m_level <= LogLevel::Error) {
+		SetConsoleTextAttribute(m_handle, 0x0c);
+		std::cout << "[" << m_name << "][ERROR] " << string << std::endl;
+		SetConsoleTextAttribute(m_handle, 0x0f);
+	}
+}
+
+void KineZ::Logger::Critical(const std::string& string)
+{
+	SetConsoleTextAttribute(m_handle, 0xcf);
+	std::cout << "[" << m_name << "][CRITICAL] " << string << std::endl;
+	SetConsoleTextAttribute(m_handle, 0x0f);
+}
+
 void KineZ::Logger::SetLogLevel(LogLevel level)
 {
 	m_level = level;

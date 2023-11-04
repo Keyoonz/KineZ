@@ -38,7 +38,12 @@ namespace KineZ {
 			m_logger.Error("Failed to initialize GLAD");
 
 		}
+		else {
+			m_logger.Info("Using version : " + (std::string)(char*)glGetString(GL_VERSION));
+			m_logger.Info("Using renderer : " + (std::string)(char*)glGetString(GL_RENDERER));
+		}
 
+		
 		
 
 		while(!glfwWindowShouldClose(m_window))
