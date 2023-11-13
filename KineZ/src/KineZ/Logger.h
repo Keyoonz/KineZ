@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Core.h"
+#include "glm/glm.hpp"
+
 #include <Windows.h>
 #include <iostream>
 
@@ -37,6 +39,10 @@ namespace KineZ {
 		void Warn(    const std::string& string);
 		void Error(   const std::string& string);
 		void Critical(const std::string& string);
+		void Info(    const glm::vec3& position);
+		void Warn(    const glm::vec3& position);
+		void Error(   const glm::vec3& position);
+		void Critical(const glm::vec3& position);
 		
 		void SetLogLevel(LogLevel level);
 
