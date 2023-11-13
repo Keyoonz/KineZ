@@ -1,11 +1,16 @@
 #include "UpdateItem.h"
 
-//for KineZ Only
-std::vector<KineZ::UpdateItem*> k_updateItems;
+#include "utils/DoubleLinkedList.h"
+//For KineZ Only
+KineZ::DoubleLinkedList<KineZ::UpdateItem*> k_updateItems;
 
-#include <iostream>
+
 
 KineZ::UpdateItem::UpdateItem()
 {
-	k_updateItems.emplace_back(this);
+	k_updateItems.push_back(this);
+}
+
+void KineZ::UpdateItem::update()
+{
 }

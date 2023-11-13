@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Core.h"
-#include <vector>
 
 namespace KineZ {
 
@@ -10,7 +9,7 @@ namespace KineZ {
 	{
 	public:
 		UpdateItem();
-		virtual void update() = 0;
+		virtual void update();
 	};
 
 }

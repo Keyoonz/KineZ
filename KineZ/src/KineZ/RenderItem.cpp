@@ -1,11 +1,17 @@
 #include "RenderItem.h"
 
+
+#include "utils/DoubleLinkedList.h"
 //For KineZ Only
-std::vector<KineZ::RenderItem*> k_renderItems;
+KineZ::DoubleLinkedList<KineZ::RenderItem*> k_renderItems;
 
 #include <iostream>
 
 KineZ::RenderItem::RenderItem()
 {
-	k_renderItems.emplace_back(this);
+	k_renderItems.push_back(this);
+}
+
+void KineZ::RenderItem::render(Camera camera)
+{
 }

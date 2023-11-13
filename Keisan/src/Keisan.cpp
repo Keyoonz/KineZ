@@ -9,7 +9,7 @@ public:
 	{
 		logger.Info("Updating Card");
 	};
-	void render()
+	void render(KineZ::Camera camera)
 	{
 		logger.Info("Rendering Card");
 	}
@@ -23,6 +23,7 @@ public:
 	Keisan(int width, int height, const char* title)
 		:Application(width, height, title), exempleCard()
 	{
+
 
 	}
 	~Keisan() {

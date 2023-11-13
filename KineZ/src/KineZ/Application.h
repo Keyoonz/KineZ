@@ -4,6 +4,7 @@
 #include "Logger.h"
 #include "UpdateItem.h"
 #include "RenderItem.h"
+#include "Camera.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -13,8 +14,10 @@ namespace KineZ {
 	private:
 		int m_width, m_height;
 		const char* m_title;
-		KineZ::Logger m_logger;
+		Logger m_logger;
 		GLFWwindow* m_window;
+	protected:
+		Camera p_camera;
 	public:
 		Application(int width, int height, const char* title);
 		virtual ~Application();

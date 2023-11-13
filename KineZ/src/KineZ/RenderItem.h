@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core.h"
-#include <vector>
+#include "Camera.h"
 
 
 namespace KineZ {
@@ -9,6 +9,6 @@ namespace KineZ {
 	{
 	public:
 		RenderItem();
-		virtual void render() = 0;
+		virtual void render(Camera camera);
 	};
 }

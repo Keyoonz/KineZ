@@ -1,4 +1,6 @@
 #include "Application.h"
+#include "utils/DoubleLinkedList.h"
+
 #include <iostream>
 
 namespace KineZ {
@@ -6,7 +8,7 @@ namespace KineZ {
 		
 
 	Application::Application(int width, int height, const char* title)
-		: m_logger(LogLevel::Info, "KineZ"), m_width(width), m_height(height), m_title(title), m_window(nullptr)
+		: m_logger(LogLevel::Info, "KineZ"), m_width(width), m_height(height), m_title(title), m_window(nullptr), p_camera(0, 0, width, height)
 	{
 		m_logger.Info("Application created");
 	}
@@ -18,8 +20,9 @@ namespace KineZ {
 
 	void Application::Run()
 	{	
-		extern std::vector<UpdateItem*> k_updateItems;
-		extern std::vector<RenderItem*> k_renderItems;
+		extern DoubleLinkedList<UpdateItem*> k_updateItems;
+		extern DoubleLinkedList<RenderItem*> k_renderItems;
+
 
 		if (!glfwInit()) {
 			m_logger.Error("Initializing GLFW failed.");
@@ -57,7 +60,7 @@ namespace KineZ {
 			
 			glClear(GL_COLOR_BUFFER_BIT);
 			for (int i = 0; i < k_renderItems.size(); i++) {
-				k_renderItems[i]->render();
+				k_renderItems[i]->render(p_camera);
 			}
 
 
