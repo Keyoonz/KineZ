@@ -1,3 +1,6 @@
 [submodule "KineZ/vendor/GLFW"]
 	path = KineZ/vendor/GLFW
 	url = https://github.com/glfw/glfw
+[submodule "KineZ/vendor/GLM"]
+	path = KineZ/vendor/GLM
+	url = https://github.com/g-truc/glm
