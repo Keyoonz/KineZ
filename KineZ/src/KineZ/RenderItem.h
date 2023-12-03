@@ -9,6 +9,6 @@ namespace KineZ {
 	{
 	public:
 		RenderItem();
-		virtual void render(Camera camera);
+		virtual void render();
 	};
 }

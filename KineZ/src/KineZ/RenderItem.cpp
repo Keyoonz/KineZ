@@ -12,6 +12,6 @@ KineZ::RenderItem::RenderItem()
 	k_renderItems.push_back(this);
 }
 
-void KineZ::RenderItem::render(Camera camera)
+void KineZ::RenderItem::render()
 {
 }

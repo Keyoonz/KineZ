@@ -1,5 +1,7 @@
 #include "Logger.h"
 
+KineZ::Logger KZlogger("KineZ");
+
 KineZ::Logger::Logger(const char* name)
 	: m_level(LogLevel::Info), m_handle(GetStdHandle(STD_OUTPUT_HANDLE)), m_name(name)
 {

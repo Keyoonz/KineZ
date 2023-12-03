@@ -18,10 +18,10 @@ public:
 class Keisan : public KineZ::Application
 {
 private:
-	Card exempleCard;
+
 public:
 	Keisan(int width, int height, const char* title)
-		:Application(width, height, title), exempleCard()
+		:Application(width, height, title)
 	{
 
 

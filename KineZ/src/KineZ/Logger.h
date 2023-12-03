@@ -47,6 +47,4 @@ namespace KineZ {
 		void SetLogLevel(LogLevel level);
 
 	};
-	
-	//Logger KZLogger(LogLevel::Info);
 }
