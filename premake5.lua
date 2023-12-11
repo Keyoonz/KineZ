@@ -108,8 +108,9 @@ project "KineZ"
     includedirs
     {
         "%{prj.name}/vendor/GLFW/include",
-        "%{prj.name}/vendor/GLAD/include";
-        "%{prj.name}/vendor/GLM/"
+        "%{prj.name}/vendor/GLAD/include",
+        "%{prj.name}/vendor/GLM/",
+        "%{prj.name}/vendor/STB/include"
     }
 
     libdirs 
@@ -120,7 +121,6 @@ project "KineZ"
     links
     {
         "GLFW",
-        -- "GLAD"
     }
 
     filter "system:windows"
@@ -161,7 +161,8 @@ project "Keisan"
     files 
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/shaders/**.glsl"
 
     }
 
@@ -170,6 +171,7 @@ project "Keisan"
         "KineZ/vendor/GLFW/include",
         "KineZ/vendor/GLAD/include",
         "KineZ/vendor/GLM/",
+        "%{prj.name}/vendor/STB/include",
         "KineZ/src"
     }
 
