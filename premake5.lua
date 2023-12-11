@@ -71,9 +71,14 @@ project "GLFW"
 
         }
 
+        prebuildcommands 
+        {
+            ("{MKDIR}  bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/Keisan/")
+        }
+
         postbuildcommands 
         {
-            ("{COPY} bin/Debug-windows-x86_64/GLFW/GLFW.dll bin/Debug-windows-x86_64/Keisan/")
+            ("{COPY} bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/GLFW/GLFW.dll bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/Keisan/")
         }
 
     filter "configurations:Debug"
@@ -133,11 +138,17 @@ project "KineZ"
             "KZ_PLATFORM_WINDOWS"
         }
 
+        prebuildcommands 
+        {
+            ("{MKDIR}  ../bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/Keisan/")
+        }
+
         postbuildcommands 
         {
             ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Keisan")
         }
     
+
     filter "configurations:Debug"
         defines "KZ_DEBUG"
         symbols "On"
