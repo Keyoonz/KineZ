@@ -3,11 +3,8 @@
 #include "Shader.h"
 
 namespace KineZ {
-
-	
-
 	Application::Application(int width, int height, const char* title)
-		: m_width(width), m_height(height), m_title(title), m_window(nullptr), p_camera(0, 0, width, height, 0)
+		: m_width(width), m_height(height), m_title(title), m_window(nullptr), p_camera(0, 0, width, height, 0), ImplementRenderItems(nullptr)
 	{
 		extern Logger KZlogger;
 		KZlogger.Info("Application created");
@@ -18,6 +15,21 @@ namespace KineZ {
 		extern Logger KZlogger;
 		KZlogger.Info("Application terminated");
 	}
+	
+	void Application::MessageCallback(GLenum source,
+		GLenum type,
+		GLuint id,
+		GLenum severity,
+		GLsizei length,
+		const GLchar* message,
+		const void* userParam)
+	{
+		extern Logger KZlogger;
+		std::string finalMessage = "[Open GL callback] ";
+		finalMessage.append(message);
+		KZlogger.Error(finalMessage);
+	}
+
 
 	void Application::Run()
 	{	
@@ -25,13 +37,13 @@ namespace KineZ {
 		extern DoubleLinkedList<UpdateItem*> k_updateItems;
 		extern DoubleLinkedList<RenderItem*> k_renderItems;
 
-
 		if (!glfwInit()) {
-			extern Logger KZlogger;
 			KZlogger.Error("Initializing GLFW failed.");
 			return;
 		}
 		
+		glfwSwapInterval(1);
+
 		m_window = glfwCreateWindow(m_width, m_height, m_title, NULL, NULL);
 		if (!m_window)
 		{
@@ -40,8 +52,8 @@ namespace KineZ {
 		}
 
 		glfwMakeContextCurrent(m_window);
-
 		
+
 		if (!gladLoadGL()) {
 			KZlogger.Error("Failed to initialize GLAD");
 
@@ -50,10 +62,15 @@ namespace KineZ {
 			KZlogger.Info("Using version : " + (std::string)(char*)glGetString(GL_VERSION));
 			KZlogger.Info("Using renderer : " + (std::string)(char*)glGetString(GL_RENDERER));
 		}
+		
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+		glEnable(GL_DEBUG_OUTPUT);
+		glDebugMessageCallback(MessageCallback, NULL);
 
+		ImplementRenderItems();
+		Shader shader(shaderPaths);
 		
-		Shader shader("shaders/vertex.glsl", "shaders/vertex.glsl");
-		
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		while(!glfwWindowShouldClose(m_window))
 		{
@@ -63,8 +80,10 @@ namespace KineZ {
 			
 
 			glClear(GL_COLOR_BUFFER_BIT);
+			p_camera.SetupRender(shader);
 			for (int i = 0; i < k_renderItems.size(); i++) {
-				k_renderItems[i]->render();
+				k_renderItems[i]->render(shader);
+				k_renderItems[i]->Rotate(0.1f, 0.1f, 0.1f);
 			}
 
 
@@ -75,5 +94,6 @@ namespace KineZ {
 
 		glfwTerminate();
 	}
+
 
 }

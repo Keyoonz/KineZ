@@ -2,16 +2,16 @@
 
 KineZ::Logger logger("Keisan");
 
-class Card : KineZ::UpdateItem, KineZ::RenderItem
-{
+class Cube : KineZ::RenderItem {
 public:
-	void update()
+	Cube()
+		:RenderItem()
 	{
-		logger.Info("Updating Card");
-	};
-	void render(KineZ::Camera camera)
+		logger.Info("s");
+	}
+	~Cube()
 	{
-		logger.Info("Rendering Card");
+		
 	}
 };
 
@@ -30,6 +30,14 @@ public:
 
 	}
 };
+
+void KineZ::CreateRenderItems() {
+	RenderItem::addRenderItems(new RenderItem());
+}
+
+KineZ::ShaderPaths KineZ::SetShaderPaths() {
+	return { "shaders/vertex.glsl", "shaders/fragment.glsl" };
+}
 
 KineZ::Application* KineZ::CreateApplication() {
 	return new Keisan(1080, 720, "Keisan");

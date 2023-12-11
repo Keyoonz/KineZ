@@ -3,6 +3,7 @@
 #include "Core.h"
 #include "glm/glm.hpp"
 #include "glm/ext.hpp"
+#include "Shader.h"
 
 #include "OpenGlRelated.h"
 
@@ -34,7 +35,7 @@ namespace KineZ {
 		const glm::mat4* const GetViewMatrix();
 		const glm::mat4* const GetProjectionMatrix();
 
-		void SetupRender();
+		void SetupRender(const Shader& shader);
 	};
 }
 

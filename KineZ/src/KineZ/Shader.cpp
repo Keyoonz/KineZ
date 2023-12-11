@@ -8,21 +8,28 @@
 
 std::string KineZ::Shader::ParseShader(const char* path)
 {
+	extern Logger KZlogger;
+	std::string code;
 	std::ifstream file;
-	file.open(path);
-	std::stringstream ss;
-	std::string line;
-	while (getline(file, line))
+	file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	try
 	{
-		ss << line << "\n";
+		file.open(path);
+		std::stringstream stream;
+		stream << file.rdbuf();
+		file.close();
+		code = stream.str();
 	}
-	return ss.str();
+	catch (std::ifstream::failure e)
+	{
+		KZlogger.Error("Shader file not succesfully read.");
+	}
+	return code;
 }
 
-unsigned int KineZ::Shader::CreateShader(const char* source, const unsigned int shaderType)
+void KineZ::Shader::CreateShader(const char* source, unsigned int shader)
 {
 	extern Logger KZlogger;
-	unsigned int shader = glCreateShader(shaderType);
 	glShaderSource(shader, 1, &source, NULL);
 	glCompileShader(shader);
 	int success;
@@ -33,26 +40,36 @@ unsigned int KineZ::Shader::CreateShader(const char* source, const unsigned int 
 		glGetShaderInfoLog(shader, 512, NULL, infolog);
 		KZlogger.Error(infolog);
 	}
-	return shader;
 }
 
-KineZ::Shader::Shader(const char* vertexSource, const char* fragmentSource)
-	:m_id(glCreateProgram())
+KineZ::Shader::Shader(ShaderPaths shaderPaths)
+	:m_id(0)
 {
-	unsigned int vertexShader = CreateShader(ParseShader(vertexSource).c_str(), GL_VERTEX_SHADER);
-	unsigned int fragmentShader = CreateShader(ParseShader(fragmentSource).c_str(), GL_FRAGMENT_SHADER);
+	extern Logger KZlogger;
+	std::string vSource = ParseShader(shaderPaths.vertexPath);
+	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
-	Bind();
+	std::string fSource = ParseShader(shaderPaths.fragmentPath);
+	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	
+	CreateShader(vSource.c_str(), vertexShader);
+	CreateShader(fSource.c_str(), fragmentShader);
 
+	m_id = glCreateProgram();
 	glAttachShader(m_id, vertexShader);
 	glAttachShader(m_id, fragmentShader);
+	glLinkProgram(m_id);
 
-	glValidateProgram(m_id);
+	int success;
+	glGetProgramiv(m_id, GL_LINK_STATUS, &success);
+	if (!success) {
+		char infoLog[512];
+		glGetProgramInfoLog(m_id, 512, NULL, infoLog);
+		KZlogger.Error(infoLog);
+	}
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
-
-	Shader::Unbind();
 }
 
 KineZ::Shader::~Shader()
@@ -60,7 +77,7 @@ KineZ::Shader::~Shader()
 	glDeleteProgram(m_id);
 }
 
-void KineZ::Shader::Bind()
+void KineZ::Shader::Bind() const
 {
 	glUseProgram(m_id);
 }
@@ -68,5 +85,12 @@ void KineZ::Shader::Bind()
 void KineZ::Shader::Unbind()
 {
 	glUseProgram(0);
+}
+
+void KineZ::Shader::SendMatrix4f(const glm::mat4& matrix, const char* name) const
+{
+	Bind();
+	glUniformMatrix4fv(glGetUniformLocation(m_id, name), 1, GL_FALSE, glm::value_ptr(matrix));
+	Unbind();
 }
 
