@@ -36,7 +36,7 @@ void KineZ::CreateRenderItems() {
 }
 
 KineZ::ShaderPaths KineZ::SetShaderPaths() {
-	return { "shaders/vertex.glsl", "shaders/fragment.glsl" };
+	return { "res/shaders/vertex.glsl", "res/shaders/fragment.glsl" };
 }
 
 KineZ::Application* KineZ::CreateApplication() {

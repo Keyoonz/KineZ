@@ -9,7 +9,7 @@ KINEZ_API KineZ::DoubleLinkedList<KineZ::RenderItem*> k_renderItems;
 #include <glm/gtx/string_cast.hpp>
 
 KineZ::RenderItem::RenderItem()
-	: id(0), m_vbo(0), m_ebo(0), m_transformationMatrix(glm::mat4(1.0f)), m_rotation(60.0f,30.0f,30.0f)
+	: id(0), m_vbo(0), m_ebo(0), m_transformationMatrix(glm::mat4(1.0f)), m_rotation(60.0f,30.0f,30.0f), m_texture("res/images/download.jpg")
 {
 	m_transformationMatrix = glm::translate(m_transformationMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
 	m_transformationMatrix = glm::rotate(m_transformationMatrix, glm::radians(m_rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -18,15 +18,15 @@ KineZ::RenderItem::RenderItem()
 	m_transformationMatrix = glm::scale(m_transformationMatrix, glm::vec3(100.0f, 100.0f, 100.0f));
 
 
-	float vertices[24] = {
-		-0.5f, -0.5f, -0.5f,
-		 0.5f, -0.5f, -0.5f,
-		 0.5f, -0.5f,  0.5f,
-		-0.5f, -0.5f,  0.5f,
-		-0.5f,  0.5f, -0.5f,
-		 0.5f,  0.5f, -0.5f,
-		 0.5f,  0.5f,  0.5f,
-		-0.5f,  0.5f,  0.5f,
+	float vertices[40] = {
+		-0.5f, -0.5f, -0.5f,		0.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,		1.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,		0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,		0.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,		1.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,		1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,		0.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,		0.0f, 0.0f
 	};
 
 	int indices[36] = {
@@ -57,8 +57,11 @@ KineZ::RenderItem::RenderItem()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+	
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -69,9 +72,12 @@ void KineZ::RenderItem::render(const KineZ::Shader& shader)
 {
 	shader.SendMatrix4f(m_transformationMatrix, "transformationMatrix");
 	shader.Bind();
+	m_texture.Bind();
 	glBindVertexArray(id);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+	Texture::Unbind();
+	Shader::Unbind();
 
 }
 

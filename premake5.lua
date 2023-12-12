@@ -182,7 +182,7 @@ project "Keisan"
         "KineZ/vendor/GLFW/include",
         "KineZ/vendor/GLAD/include",
         "KineZ/vendor/GLM/",
-        "%{prj.name}/vendor/STB/include",
+        "KineZ/vendor/STB/include",
         "KineZ/src"
     }
 

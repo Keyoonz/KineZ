@@ -69,8 +69,6 @@ namespace KineZ {
 
 		ImplementRenderItems();
 		Shader shader(shaderPaths);
-		
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		while(!glfwWindowShouldClose(m_window))
 		{

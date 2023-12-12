@@ -6,6 +6,7 @@
 
 #include "OpenGlRelated.h"
 #include "glm/glm.hpp"
+#include "Texture.h"
 
 namespace KineZ {
 	class KINEZ_API RenderItem
@@ -17,6 +18,7 @@ namespace KineZ {
 		unsigned int m_ebo;
 		glm::vec3 m_rotation;
 		glm::mat4 m_transformationMatrix;
+		Texture m_texture;
 	public:
 		RenderItem();
 		virtual void render(const Shader& shader);
