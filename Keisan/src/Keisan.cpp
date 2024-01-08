@@ -1,20 +1,7 @@
 #include "KineZ.h"
 
 KineZ::Logger logger("Keisan");
-
-class Cube : KineZ::RenderItem {
-public:
-	Cube()
-		:RenderItem()
-	{
-		logger.Info("s");
-	}
-	~Cube()
-	{
-		
-	}
-};
-
+#include <filesystem>
 class Keisan : public KineZ::Application
 {
 private:
@@ -31,8 +18,8 @@ public:
 	}
 };
 
-void KineZ::CreateRenderItems() {
-	RenderItem::addRenderItems(new RenderItem());
+void KineZ::CreateMeshes() {
+	Model::AddModel(new KineZ::Model("res/mesh/backpack.obj"));
 }
 
 KineZ::ShaderPaths KineZ::SetShaderPaths() {

@@ -90,8 +90,10 @@ const glm::mat4* const KineZ::Camera::GetProjectionMatrix()
 
 void KineZ::Camera::SetupRender(const Shader& shader)
 {
+	shader.Bind();
 	shader.SendMatrix4f(m_projectionMatrix, "projectionMatrix");
 	shader.SendMatrix4f(m_viewMatrix, "viewMatrix");
+	Shader::Unbind();
 }
 
 

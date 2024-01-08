@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core.h"
 #include "glm/glm.hpp"
 
 #include <Windows.h>
@@ -8,12 +7,12 @@
 
 namespace KineZ {
 
-	enum KINEZ_API LogLevel
+	enum LogLevel
 	{
 		Info, Warning, Error, Critical
 	};
 
-	class KINEZ_API Logger
+	class Logger
 	{
 
 	private:

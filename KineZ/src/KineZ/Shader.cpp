@@ -89,8 +89,11 @@ void KineZ::Shader::Unbind()
 
 void KineZ::Shader::SendMatrix4f(const glm::mat4& matrix, const char* name) const
 {
-	Bind();
 	glUniformMatrix4fv(glGetUniformLocation(m_id, name), 1, GL_FALSE, glm::value_ptr(matrix));
-	Unbind();
+}
+
+void KineZ::Shader::SendInt(int& value, const char* name) const
+{
+	glUniform1i(glGetUniformLocation(m_id, name), value);
 }
 

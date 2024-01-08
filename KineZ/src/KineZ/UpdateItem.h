@@ -1,11 +1,9 @@
 #pragma once
 
-#include "Core.h"
-
 namespace KineZ {
 
 
-	class KINEZ_API UpdateItem
+	class UpdateItem
 	{
 	public:
 		UpdateItem();

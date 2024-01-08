@@ -1,17 +1,16 @@
 #pragma once
 
 #include "OpenGlRelated.h"
-#include "Core.h"
 #include "string"
 #include <glm/gtc/type_ptr.hpp>
 
 namespace KineZ {
-	struct KINEZ_API ShaderPaths {
+	struct ShaderPaths {
 		const char* vertexPath;
 		const char* fragmentPath;
 	};
 
-	class KINEZ_API Shader {
+	class Shader {
 	private:
 		unsigned int m_id;
 	private:
@@ -25,6 +24,7 @@ namespace KineZ {
 		static void Unbind();
 
 		void SendMatrix4f(const glm::mat4& matrix, const char* name) const;
+		void SendInt(int& value, const char* name) const;
 	};
 
 

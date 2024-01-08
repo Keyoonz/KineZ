@@ -1,12 +1,15 @@
 #pragma once
 
-#include "../Core.h"
-#include "../RenderItem.h"
+#include "../Model.h"
 #include "../UpdateItem.h"
 
+class Model {
+
+};
+
 namespace KineZ {
-	template<typename T>
-	class KINEZ_API DoubleLinkedList {
+	template<class T>
+	class DoubleLinkedList {
 
 	public:
 		struct Node {
@@ -38,6 +41,6 @@ namespace KineZ {
 		int m_size;
 	};
 
-	template class KINEZ_API DoubleLinkedList<RenderItem*>;
-	template class KINEZ_API DoubleLinkedList<UpdateItem*>;
+	template class DoubleLinkedList<UpdateItem*>;
+	template class DoubleLinkedList<Model*>;
 }

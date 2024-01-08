@@ -1,16 +1,15 @@
 #pragma once
 
-#include "Core.h"
 #include "Logger.h"
 #include "UpdateItem.h"
-#include "RenderItem.h"
+#include "Model.h"
 #include "Camera.h"
 
 #include "OpenGlRelated.h"
 #include "Shader.h"
 
 namespace KineZ {
-	class KINEZ_API Application {
+	class Application {
 	private:
 		int m_width, m_height;
 		const char* m_title;
@@ -20,7 +19,7 @@ namespace KineZ {
 		Camera p_camera;
 	public:
 		KineZ::ShaderPaths shaderPaths;
-		void (*ImplementRenderItems)(void);
+		void (*ImplementMeshes)(void);
 		Application(int width, int height, const char* title);
 		virtual ~Application();
 

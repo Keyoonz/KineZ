@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core.h"
 #include "glm/glm.hpp"
 #include "glm/ext.hpp"
 #include "Shader.h"
@@ -8,7 +7,7 @@
 #include "OpenGlRelated.h"
 
 namespace KineZ {
-	class KINEZ_API Camera
+	class Camera
 	{
 	private:
 		int m_width, m_height;

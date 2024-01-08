@@ -1,10 +1,11 @@
 #include "Application.h"
+#include "Model.h"
 #include "utils/DoubleLinkedList.h"
 #include "Shader.h"
 
 namespace KineZ {
 	Application::Application(int width, int height, const char* title)
-		: m_width(width), m_height(height), m_title(title), m_window(nullptr), p_camera(0, 0, width, height, 0), ImplementRenderItems(nullptr)
+		: m_width(width), m_height(height), m_title(title), m_window(nullptr), p_camera(0, 0, width, height, 0), ImplementMeshes(nullptr)
 	{
 		extern Logger KZlogger;
 		KZlogger.Info("Application created");
@@ -35,7 +36,7 @@ namespace KineZ {
 	{	
 		extern Logger KZlogger;
 		extern DoubleLinkedList<UpdateItem*> k_updateItems;
-		extern DoubleLinkedList<RenderItem*> k_renderItems;
+		extern DoubleLinkedList<Model*> k_models;
 
 		if (!glfwInit()) {
 			KZlogger.Error("Initializing GLFW failed.");
@@ -67,7 +68,7 @@ namespace KineZ {
 		glEnable(GL_DEBUG_OUTPUT);
 		glDebugMessageCallback(MessageCallback, NULL);
 
-		ImplementRenderItems();
+		ImplementMeshes();
 		Shader shader(shaderPaths);
 
 		while(!glfwWindowShouldClose(m_window))
@@ -79,9 +80,8 @@ namespace KineZ {
 
 			glClear(GL_COLOR_BUFFER_BIT);
 			p_camera.SetupRender(shader);
-			for (int i = 0; i < k_renderItems.size(); i++) {
-				k_renderItems[i]->render(shader);
-				k_renderItems[i]->Rotate(0.1f, 0.1f, 0.1f);
+			for (int i = 0; i < k_models.size(); i++) {
+				k_models[i]->Render(shader);
 			}
 
 

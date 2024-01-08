@@ -4,3 +4,6 @@
 [submodule "KineZ/vendor/GLM"]
 	path = KineZ/vendor/GLM
 	url = https://github.com/g-truc/glm
+[submodule "KineZ/vendor/assimp"]
+	path = KineZ/vendor/assimp
+	url = https://github.com/Keyoonz/assimp
