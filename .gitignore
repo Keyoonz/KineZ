@@ -1,5 +1,6 @@
 # directories
 .vs/
+.cache/
 bin/
 bin-int/
 KineZ.sln
@@ -8,6 +9,13 @@ KineZ.sln
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+
+#make files
+*Makefile
+*.make
+
+#lsp files
+compile_commands.json
 
 #premake
 premake5.exe

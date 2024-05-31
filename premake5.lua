@@ -225,6 +225,14 @@ project "GLFW"
             "_CRT_SECURE_NO_WARNINGS"
 
         }
+    filter "system:linux"
+
+        defines
+        {
+            "_GLFW_BUILD_DLL",
+            "_CRT_SECURE_NO_WARNINGS"
+
+        }
 
         -- prebuildcommands 
         -- {
@@ -305,7 +313,11 @@ project "KineZ"
         -- {
         --     ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Keisan")
         -- }
-    
+
+    filter "system:linux"
+        defines {
+            "KZ_PLATFORM_LINUX"
+        }
 
     filter "configurations:Debug"
         defines "KZ_DEBUG"
@@ -357,6 +369,15 @@ project "Keisan"
 
         defines {
             "KZ_PLATFORM_WINDOWS"
+        }
+
+    filter "system:windows"
+        cppdialect "C++17"
+        staticruntime "On"
+        systemversion "latest"
+
+        defines {
+            "KZ_PLATFORM_LINUX"
         }
     
     filter "configurations:Debug"
